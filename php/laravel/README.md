@@ -15,7 +15,7 @@
 
 ### nginx配置
 在我的机器上，该项目安装位于`/Users/abotchen/workspace/learn/php/laravel/blog`,所以nginx配置如下：
-```
+```shell
     upstream backendevents{
         server 127.0.0.1:9000;
     }
@@ -49,20 +49,21 @@
 ```
 
 ### 启动php-fpm
-```
+```shell
     sudo php-fpm
-```
+```shell
 
 ### 修改sotrage目录权限
-```
+```shell
     chmod -R 777 storage/
 ```
 如果不修改该权限，`http://localhost`访问时，只能知道是`500 Internal Server Error`，无法看到错误信息
 
 ### 打开开发环境
-```
+```shell
     cp .env.example .env
-    php artisan key:generate #不执行这句的话，访问时会报错：`No supported encrypter found. The cipher and / or key length are invalid.`
+    php artisan key:generate
+    #不执行这句的话，访问时会报错：`No supported encrypter found. The cipher and / or key length are invalid.`
 ```
 
 至此， 项目应该可以正常访问了。
