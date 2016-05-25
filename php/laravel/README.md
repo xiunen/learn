@@ -104,7 +104,20 @@ class UserController extends Controller{
 # 模板继承和引用
 
 # 获取请求参数
+```php
+    namespace App\Http\Controllers;
+    use Illuminate\Http\Request;
+    class UserController extends Controller{
+        public function index(Request $req){
+            $input_name = $req->input('name');//获取名字为name的请求的参数，不管是何种请求
+            $req->getContent(); //获得raw input， 这在和angular配合或者传过来的参数时json时很有用
+            Request::getContent(); //获得raw input
+        }
+    }
+```
+
 # 文件上传
+
 # session和cookie
 # 数据库
 # model
