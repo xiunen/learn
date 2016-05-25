@@ -51,7 +51,7 @@
 ### 启动php-fpm
 ```shell
     sudo php-fpm
-```shell
+```
 
 ### 修改sotrage目录权限
 ```shell
