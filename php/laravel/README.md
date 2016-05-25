@@ -68,8 +68,51 @@
 
 至此， 项目应该可以正常访问了。
 
+### 定义路由规则
+路由规则定义在`app/Http/routes.php`文件中。路由规则的定义可以[http://laravel-china.org/docs/5.1/routing](http://laravel-china.org/docs/5.1/routing)。
+在大型项目中，建议使用`resource`方法，例如在`blog/app/Httproutes.php`添加如下代码：
+```php
+    Route::resource('users', 'UserController');
+```
 
+### 渲染模板以及变量
+假设我们现在访问的是`http://localhost/users/`，则在`blog/app/Http/Controllers/UserController.php`中增加如下代码：
+```php
+namespace App\Http\Controllers;
+class UserController extends Controller{
+    public function index(){
+        $obj = new \stdClass();
+        $obj->name = 'I am object';
+        return view('users/index',[
+            'name'=>'This is for template',
+            'user'=>[
+                'name'=>'hello world'
+            ],
+            'obj'=>$obj
+        ]);
+    }
+}
+```
+渲染模板的位置位于`resources/views/users/index.blade.php`, 使用变量方式如下：
+```html
+    使用name变量 {{$name}} 
+    使用user变量 {{$user['name']}}
+    使用obj变量 {{$obj->name}}
+```
+模板中使用控制循环结构参考[Control Structures](https://laravel.com/docs/5.1/blade#control-structures)
 
+# 模板继承和引用
+
+# 获取请求参数
+# 文件上传
+# session和cookie
+# 数据库
+# model
+# migration
+# I18n
+# Task
+
+# 控制台
 
 
 
