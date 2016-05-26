@@ -74,6 +74,11 @@
 ```php
     Route::resource('users', 'UserController');
 ```
+模板中使用路由，参考`blog/resoureces/views/users/create.blade.php`
+```html
+    {{route('user.store')}}
+```
+路由名称可以使用`php artisan route:list`在控制台中查看。
 
 ### 渲染模板以及变量
 假设我们现在访问的是`http://localhost/users/`，则在`blog/app/Http/Controllers/UserController.php`中增加如下代码：
@@ -102,6 +107,14 @@ class UserController extends Controller{
 模板中使用控制循环结构参考[Control Structures](https://laravel.com/docs/5.1/blade#control-structures)
 
 # 模板继承和引用
+模板是正常的html文件，需要替换的地方用`@yield('foo')`这样的占位符。可以参考`blog/resources/views/layout/app.blade.php`
+引用模板使用`@extends('layout.app')`，对于其中的占位符可以使用：
+```html
+    @section('content')
+    <!--other html markup-->
+    @endsection
+```
+参考`blog/resoureces/views/users/create.blade.php`
 
 # 获取请求参数
 ```php
@@ -111,8 +124,8 @@ class UserController extends Controller{
         public function index(Request $req){
             $input_name = $req->input('name');//获取名字为name的请求的参数，不管是何种请求
             $req->getContent(); //获得raw input， 这在和angular配合或者传过来的参数时json时很有用
-            Request::getContent(); //获得raw input
         }
+
     }
 ```
 
@@ -121,6 +134,17 @@ class UserController extends Controller{
 # session和cookie
 # 数据库
 # model
+创建模型并插入数据库,如`blog/app/Http/Controllers/UserController.php`
+```php
+    public function store(Request $req){
+        try{
+            $user = User::create($req->all());
+        }catch(\Exception $e){  //这里必须携程\Exception，不能用Exception
+            echo $e->getMessage();
+        }
+    }
+```
+
 # migration
 # I18n
 # Task

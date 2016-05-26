@@ -17,7 +17,14 @@ class UserController extends Controller{
         ]);
     }
     public function store(Request $req){
-        echo $req->input('name');
-        var_dump($req->getContent());
+        try{
+            $user = User::create($req->all());
+        }catch(\Exception $e){
+            echo $e->getMessage();
+        }
+    }
+
+    public function create(){
+        return view('users/create');
     }
 }
