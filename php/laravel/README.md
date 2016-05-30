@@ -98,7 +98,7 @@ class UserController extends Controller{
     }
 }
 ```
-渲染模板的位置位于`resources/views/users/index.blade.php`, 使用变量方式如下：
+渲染模板的位置位于`blog/resources/views/users/index.blade.php`, 使用变量方式如下：
 ```html
     使用name变量 {{$name}} 
     使用user变量 {{$user['name']}}
@@ -107,14 +107,22 @@ class UserController extends Controller{
 模板中使用控制循环结构参考[Control Structures](https://laravel.com/docs/5.1/blade#control-structures)
 
 # 模板继承和引用
-模板是正常的html文件，需要替换的地方用`@yield('foo')`这样的占位符。可以参考`blog/resources/views/layout/app.blade.php`
-引用模板使用`@extends('layout.app')`，对于其中的占位符可以使用：
+模板是正常的html文件，需要替换的地方用`@yield('content')`这样的占位符。可以参考`blog/resources/views/layout/app.blade.php`
+引用模板使用`@extends('layout.app')`，对于其中的占位符可以使用`@section('content')`和`@endsection`包裹起来。
+参考`blog/resoureces/views/users/create.blade.php`
 ```html
+    @extends('layout.app')
     @section('content')
-    <!--other html markup-->
+        <form action='{{route("users.store")}}' method="post">
+            {{csrf_field()}}
+            <input type="text" name="name" placeholder="姓名">
+            <input type="password" name="password" placeholder="密码">
+            <input type="email" name="email" placeholder="邮箱">
+            <input type="submit">
+        </form>
     @endsection
 ```
-参考`blog/resoureces/views/users/create.blade.php`
+模板对资源(如图片，css文件，js文件)的引用做得比较烂，不能生成唯一的md5码，如果使用到cdn的话，会导致资源更新不及时，或者需要手动更新。
 
 # 获取请求参数
 ```php
@@ -130,16 +138,36 @@ class UserController extends Controller{
 ```
 
 # 文件上传
+html代码参考`blog/resources/views/users/avatar.blade.php`
+获取上传文件的代码参考`blog/app/Http/Controllers/UserController.php`中`upload_avatar`方法
+```php
+    public function upload_avatar(Request $req){
+        if($req->hasFile('name')){
+            $req->file('name')->move(__DIR__.'/../../../log','xxxxx');
+        }
+    }
+```
 
 # session和cookie
+```php
+    Session::put('key','value');    //设置session
+    Session::get('key');            //从session获得指定key的值
+    Session::forget('key');         //删除session中某个key
+
+    Cookie::get('key');             //获得cookie的值
+    Cookie::queue(Cookie::make('name', 'value', $minutes));    //设置cookie
+```
+
 # 数据库
+
+
 # model
 创建模型并插入数据库,如`blog/app/Http/Controllers/UserController.php`
 ```php
     public function store(Request $req){
         try{
             $user = User::create($req->all());
-        }catch(\Exception $e){  //这里必须携程\Exception，不能用Exception
+        }catch(\Exception $e){  //这里必须写成\Exception，不能用Exception
             echo $e->getMessage();
         }
     }

@@ -15,4 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('users/avatar','UserController@avatar');
+Route::post('users/avatar',['as'=>'upload_avatar','uses'=>'UserController@upload_avatar']);
+
 Route::resource('users','UserController');
+
