@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="test">
+
+<head>
+    <meta charset="utf-8">
+    <title>Template|Angular 测试</title>
+</head>
+
+<body>
+    <!-- ng-controller -->
+    <div ng-controller="ContactsCtrl">
+        <ul>
+            <!--循环 ng-repeat -->
+            <li ng-repeat="item in items">
+                <a href="mailto:{{item.email}}">
+                    {{$index}} {{item.name}}
+                </a>
+            </li>
+        </ul>
+        <!-- 判断 ng-if -->
+        <div ng-if="level > 3">Level Greater Than 3</div>
+        <div ng-if="level <= 3">Level Less Than Equal 3</div>
+        <!-- 判断 ng-switch ng-switch-when ng-swtich-default -->
+        <div ng-switch="month">
+            <div ng-switch-when="5">May</div>
+            <div ng-switch-when="6">June</div>
+            <div ng-switch-default>Other Month</div>
+        </div>
+        <div>
+            <!-- 获取用户输入 ng-model -->
+            <input type="text" ng-model="userinput"> You input:{{userinput}}
+        </div>
+        <div>
+            <input type="radio" ng-model="color" value="red">Red
+            <input type="radio" ng-model="color" value="green">Green
+            <div>Color is {{color}}</div>
+        </div>
+        <div>
+            <input type="checkbox" ng-model="lang.php" value="PHP">Jack
+            <input type="checkbox" ng-model="lang.js" ng-true-value="'JavaScript'" ng-false-value="'JS'">Javascript
+            <div>PHP checked: {{lang.php}}</div>
+            <div>JS checked: {{lang.js}}</div>
+        </div>
+        <!-- 事件捕捉 -->
+        <a href="" ng-click="click_link(10)">点我</a>
+    </div>
+</body>
+<script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+<script type="text/javascript" src="/js/template.js"></script>
+
+</html>

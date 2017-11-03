@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html ng-app="test">
+
+<head>
+    <meta charset="utf-8">
+    <title>Template|Angular 测试</title>
+</head>
+
+<body>
+    <!-- ng-controller -->
+    <div ng-controller="TestCtrl">
+        <div ng-repeat="item in users">
+            <input type="text" ng-model="item">{{item}}
+            <user-component username="item" nickname="主席">
+            </user-component>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+<script type="text/javascript" src="/js/component.js"></script>
+</html>

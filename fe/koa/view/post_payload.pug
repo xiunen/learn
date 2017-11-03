@@ -1,0 +1,21 @@
+extends ./layout
+
+block vars 
+    - var title = 'Post Payload';
+
+block content
+    #test
+        a(@click="send()") Go
+block js
+    script(type="text/javascript",src="//cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js")
+    script(type="text/javascript",src="//cdnjs.cloudflare.com/ajax/libs/vue-resource/1.0.3/vue-resource.min.js")
+    script.
+        Vue.use(VueResource);
+        var app = new Vue({
+            el: '#test',
+            methods: {
+                send: function(){
+                    this.$http.post('',{name:"hello"})
+                }
+            }
+        });

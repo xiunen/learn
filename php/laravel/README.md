@@ -171,7 +171,21 @@ html代码参考`blog/resources/views/users/avatar.blade.php`
             echo $e->getMessage();
         }
     }
+
 ```
+
+model放在`app`目录下,基本代码如下：
+```php
+    namespace App;
+
+    use Illuminate\Database\Eloquent\Model;
+
+    class Flight extends Model{
+    }
+```
+
+# model关系
+
 
 # migration
 # I18n
